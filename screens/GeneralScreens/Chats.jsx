@@ -30,7 +30,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import GroupChat from "./GroupChat";
 import ChatsGroupChat from "./ChatsGroupChat";
 
-const Chats = ({ navigation }) => {
+const Chats = ({ route, navigation }) => {
   const [broadcastModalVisible, setBroadcastModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -251,10 +251,18 @@ const Chats = ({ navigation }) => {
 
         {/* Header */}
         <View style={styles.topBar}>
-          <Image
-            style={styles.loginImage}
-            source={require("../../assets/icons/logoMini.png")}
-          />
+          {console.log("254", route?.params?.uri)}
+          {loggedInUser?.role === "guardian" ? (
+            <Image
+              style={styles.profileImage}
+              source={{ uri: route?.params?.uri }}
+            />
+          ) : (
+            <Image
+              style={styles.loginImage}
+              source={require("../../assets/icons/logoMini.png")}
+            />
+          )}
 
           {/* User details */}
           <TouchableOpacity
@@ -282,7 +290,7 @@ const Chats = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         )}
-
+        <Text style={styles.mainChatItemTitle}>{route?.params?.name}</Text>
         {/* Main Body */}
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {cm.length > 0 ? (
@@ -446,6 +454,12 @@ const styles = StyleSheet.create({
     fontFamily: "Suse-Regular",
     textAlign: "right",
   },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    resizeMode: "cover",
+  },
   loginImage: {
     resizeMode: "contain",
     height: 30,
@@ -460,7 +474,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 16,
-    paddingTop: 40,
+    paddingTop: 20,
   },
   dropdownMenu: {
     position: "absolute",
@@ -531,6 +545,12 @@ const styles = StyleSheet.create({
   userListToggleText: {
     fontSize: 16,
     fontFamily: "Suse-Bold",
+  },
+  mainChatItemTitle: {
+    fontFamily: "Suse-SemiBold",
+    fontSize: FONTS.medium,
+    fontWeight: 600,
+    marginLeft: 16,
   },
   userList: {
     marginTop: 10,

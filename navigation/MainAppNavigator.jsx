@@ -8,7 +8,7 @@ import { ManageGroups, ManageGuardiansScreen } from "../screens/TeacherScreens";
 import { ManageRequests } from "../screens/GuardianScreens";
 import { incrementUnreadRequests } from "../redux/slices/guardian/requestSlice";
 import { socket } from "../utils/socket";
-import ManageTeachersScreen from "../screens/OrganisationAdminScreens/ManageTeachechersScreen"
+import ManageTeachersScreen from "../screens/OrganisationAdminScreens/ManageTeachechersScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -53,30 +53,28 @@ const MainAppNavigator = () => {
       {/* Common Tabs */}
       {userRole !== "organizationAdmin" && (
         <>
-        <Tab.Screen
-        name="Chats"
-        component={Chats}
-        options={{
-          tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Ionicons
-                name={"chatbubbles-sharp"}
-                size={24}
-                color={COLORS.primary}
-              />
-            ) : (
-              <Ionicons
-                name={"chatbubbles-outline"}
-                size={24}
-                color={COLORS.darkGray}
-              />
-            ),
-        }}
-      />
+          <Tab.Screen
+            name="Chats"
+            component={Chats}
+            options={{
+              tabBarIcon: ({ focused }) =>
+                focused ? (
+                  <Ionicons
+                    name={"chatbubbles-sharp"}
+                    size={24}
+                    color={COLORS.primary}
+                  />
+                ) : (
+                  <Ionicons
+                    name={"chatbubbles-outline"}
+                    size={24}
+                    color={COLORS.darkGray}
+                  />
+                ),
+            }}
+          />
         </>
-      )
-      }
-      
+      )}
 
       {/* Conditional Tabs for Teachers */}
       {userRole === "teacher" && (

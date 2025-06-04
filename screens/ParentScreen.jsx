@@ -118,7 +118,21 @@ const ParentScreen = ({ navigation }) => {
             {data?.data?.map((datum, index) => {
               return (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("MainApp")}
+                  onPress={() =>
+                    navigation.navigate("MainApp", {
+                      screen: "Chats",
+                      params: {
+                        uri: datum?.organization?.logo,
+                        location: datum?.organization?.location,
+                        name: datum?.organization?.name,
+                      },
+                    })
+                  }
+                  // onPress={() =>
+                  //   navigation.navigate("MainApp", {
+                  //     img: "logo",
+                  //   })
+                  // }
                   style={styles.institutionContainer}
                   key={index}
                 >
@@ -127,7 +141,6 @@ const ParentScreen = ({ navigation }) => {
                     source={{ uri: datum?.organization?.logo }}
                     style={styles.profileImage}
                   />
-
                   {/* Name and chat */}
                   <View style={styles.mainChatItem}>
                     <Text style={styles.mainChatItemTitle}>
@@ -169,7 +182,7 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 50,
     height: 50,
-    borderRadius: 50, // makes it perfectly round (50% of width/height)
+    borderRadius: 50,
     resizeMode: "cover",
   },
   topBar: {
@@ -328,12 +341,14 @@ const styles = StyleSheet.create({
     fontFamily: "Suse-SemiBold",
     fontSize: FONTS.medium,
     fontWeight: 600,
+    marginTop: 5,
+    marginLeft: 5,
   },
   mainChatItemSupport: {
-    fontFamily: "Suse-SemiBold",
+    fontFamily: "Suse-Light",
     fontSize: FONTS.small,
-    fontWeight: 600,
     color: COLORS.darkGray,
+    marginLeft: 5,
   },
 
   rhsContainer: {
